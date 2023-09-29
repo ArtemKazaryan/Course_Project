@@ -13,7 +13,7 @@
         <a style="color: green" href="{% url 'viewprotransaction' protransaction.id %}">
             - {{ protransaction.date }} - {{ protransaction.name }} {{ protransaction.description }}
             ({{ protransaction.income_type.first }}):
-            <b>
+            <b style="color: green">
                 {{ protransaction.amount }} руб.
             </b>
         </a>

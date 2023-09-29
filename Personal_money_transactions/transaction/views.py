@@ -5,6 +5,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from .forms import ProfitableTransactionForm, ExpenditureTransactionForm
 from .models import ProfitableTransaction, ExpenditureTransaction
+from django.contrib.auth.decorators import login_required
 from django.db.models import Min
 from datetime import date
 
@@ -49,13 +50,13 @@ def loginuser(request):
             login(request, user)
             return redirect('recorded')
 
-
+@login_required
 def logoutuser(request):
     if request.method == 'POST':
         logout(request)
         return redirect('home')
 
-
+@login_required
 def recordedtransactions(request):
     protransactions = ProfitableTransaction.objects.all()
     exptransactions = ExpenditureTransaction.objects.all()
@@ -133,6 +134,7 @@ def recordedtransactions(request):
     return render(request, 'transaction/recordedtransactions.html', context)
 
 
+@login_required
 def createprotransaction(request):
     if request.method == 'GET':
         return render(request, 'transaction/createprotransaction.html', {'form': ProfitableTransactionForm()})
@@ -147,6 +149,7 @@ def createprotransaction(request):
 
 
 
+@login_required
 def createexptransaction(request):
     if request.method == 'GET':
         return render(request, 'transaction/createexptransaction.html', {'form': ExpenditureTransactionForm()})
@@ -159,6 +162,7 @@ def createexptransaction(request):
             return render(request, 'transaction/createprotransaction.html', {'form': ExpenditureTransactionForm(),
                                                                              'error': 'Неверные данные!'})
 
+@login_required
 def viewprotransaction(request, protransaction_pk):
     protransaction = get_object_or_404(ProfitableTransaction, pk=protransaction_pk)
     form = ProfitableTransactionForm(instance=protransaction)
@@ -174,6 +178,7 @@ def viewprotransaction(request, protransaction_pk):
             return render(request, 'transaction/viewprotransaction.html', {'protransaction': protransaction,
                                                                            'form': form})
 
+@login_required
 def viewexptransaction(request, exptransaction_pk):
    exptransaction = get_object_or_404(ExpenditureTransaction, pk=exptransaction_pk)
    form = ExpenditureTransactionForm(instance=exptransaction)
@@ -189,12 +194,14 @@ def viewexptransaction(request, exptransaction_pk):
            return render(request, 'transaction/viewexptransaction.html', {'exptransaction': exptransaction,
                                                                           'form': form})
 
+@login_required
 def deleteprotransaction(request, protransaction_pk):
     protransaction = get_object_or_404(ProfitableTransaction, pk=protransaction_pk)
     if request.method == 'POST':
         protransaction.delete()
         return redirect('recorded')
 
+@login_required
 def deleteexptransaction(request, exptransaction_pk):
     exptransaction = get_object_or_404(ExpenditureTransaction, pk=exptransaction_pk)
     if request.method == 'POST':
