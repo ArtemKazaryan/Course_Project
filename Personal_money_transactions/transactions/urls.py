@@ -29,6 +29,8 @@ urlpatterns = [
     # Transactions
     path('', views.home, name='home'),
     path('recorded/', views.recordedtransactions, name='recorded'),
-    path('createexp/', views.createexptransaction, name='createexp'),
     path('createpro/', views.createprotransaction, name='createpro'),
+    path('createexp/', views.createexptransaction, name='createexp'),
+    path('protransaction/<int:protransaction_pk>', views.viewprotransaction, name='viewprotransaction'),
+    path('exptransaction/<int:exptransaction_pk>', views.viewexptransaction, name='viewexptransaction'),
 ]

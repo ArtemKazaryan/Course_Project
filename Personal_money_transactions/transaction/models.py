@@ -8,7 +8,6 @@ class ProfitableTransaction(models.Model):
     description = models.TextField(null=True, blank=True)
     amount = models.DecimalField(max_digits=20, decimal_places=2)
 
-
     def __str__(self):
         return self.name
 

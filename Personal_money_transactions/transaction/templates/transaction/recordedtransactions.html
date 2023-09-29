@@ -3,22 +3,24 @@
 {% block content %}
 <h3>Сегодня: {{ today }}  </h3>
 <p>Дата первых учётных данных: {{ oldest_of_oldest_dates }}</p>
-<p>Общий срок учёта: {{ max_delta_days }}</p>
+<p>Общий срок учёта (количество дней): {{ max_delta_days }}</p>
 {{ multidash }}
 <h1 style="color: green">Доходы:</h1>
 <ul style="color: green">
     <p>(общее число записей: {{ countpro }})</p>
     {% for protransaction in protransactions %}
     <li>
-        - {{ protransaction.date }} - {{ protransaction.name }} {{ protransaction.description }}
-        ({{ protransaction.income_type }}):
-        <b>
-            {{ protransaction.amount }} руб.
-        </b>
+        <a style="color: green" href="{% url 'viewprotransaction' protransaction.id %}">
+            - {{ protransaction.date }} - {{ protransaction.name }} {{ protransaction.description }}
+            ({{ protransaction.income_type }}):
+            <b>
+                {{ protransaction.amount }} руб.
+            </b>
+        </a>
     </li>
     {% endfor %}
-
 </ul>
+
 <h2 style="color: green">Общий доход: {{ sumpro }} руб.</h2>
 <h3 style="color: green">Среднесуточная скорость общего дохода: {{ total_revenue_rate }} руб. в день</h3>
 
@@ -29,14 +31,17 @@
     <p>(общее число записей: {{ countexp }})</p>
     {% for exptransaction in exptransactions %}
     <li>
-       - {{ exptransaction.date }} - {{ exptransaction.name }} {{ exptransaction.description }}
-        ({{ exptransaction.category }}):
-        <b>
-            {{ exptransaction.total_cost }} руб.
-        </b>
+        <a style="color: red" href="{% url 'viewexptransaction' exptransaction.id %}">
+            - {{ exptransaction.date }} - {{ exptransaction.name }} {{ exptransaction.description }}
+            ({{ exptransaction.category }}):
+            <b>
+                {{ exptransaction.total_cost }} руб.
+            </b>
+        </a>
     </li>
     {% endfor %}
 </ul>
+
 <h2 style="color: red">Общий расход: {{ sumexp }} руб.</h2>
 <h3 style="color: red">Среднесуточная скорость общего расхода: {{ total_expense_rate }} руб. в день</h3>
 {{ multidash }}

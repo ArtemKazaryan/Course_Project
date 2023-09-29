@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
@@ -157,3 +157,33 @@ def createexptransaction(request):
         except ValueError:
             return render(request, 'transaction/createprotransaction.html', {'form': ExpenditureTransactionForm(),
                                                                              'error': 'Неверные данные!'})
+
+def viewprotransaction(request, protransaction_pk):
+    protransaction = get_object_or_404(ProfitableTransaction, pk=protransaction_pk)
+    form = ProfitableTransaction(instance=protransaction)
+    if request.method == 'GET':
+        return render(request, 'transaction/viewprotransaction.html', {'protransaction': protransaction,
+                                                                       'form': form})
+    else:
+        try:
+            form = ProfitableTransaction(request.POST, instance=protransaction)
+            form.save()
+            return redirect('recorded')
+        except ValueError:
+            return render(request, 'transaction/viewprotransaction.html', {'protransaction': protransaction,
+                                                                           'form': form})
+
+def viewexptransaction(request, exptransaction_pk):
+   exptransaction = get_object_or_404(ExpenditureTransaction, pk=exptransaction_pk)
+   form = ExpenditureTransaction(instance=exptransaction)
+   if request.method == 'GET':
+       return render(request, 'transaction/viewexptransaction.html', {'exptransaction': exptransaction,
+                                                                       'form': form})
+   else:
+       try:
+           form = ExpenditureTransaction(request.POST, instance=exptransaction)
+           form.save()
+           return redirect('recorded')
+       except ValueError:
+           return render(request, 'transaction/viewexptransaction.html', {'exptransaction': exptransaction,
+                                                                          'form': form})
