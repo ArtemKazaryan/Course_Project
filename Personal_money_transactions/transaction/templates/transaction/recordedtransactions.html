@@ -12,11 +12,12 @@
     <li>
         <a style="color: green" href="{% url 'viewprotransaction' protransaction.id %}">
             - {{ protransaction.date }} - {{ protransaction.name }} {{ protransaction.description }}
-            ({{ protransaction.income_type }}):
+            ({{ protransaction.income_type.first }}):
             <b>
                 {{ protransaction.amount }} руб.
             </b>
         </a>
+
     </li>
     {% endfor %}
 </ul>
@@ -33,7 +34,7 @@
     <li>
         <a style="color: red" href="{% url 'viewexptransaction' exptransaction.id %}">
             - {{ exptransaction.date }} - {{ exptransaction.name }} {{ exptransaction.description }}
-            ({{ exptransaction.category }}):
+            ({{ exptransaction.category.first }}):
             <b>
                 {{ exptransaction.total_cost }} руб.
             </b>

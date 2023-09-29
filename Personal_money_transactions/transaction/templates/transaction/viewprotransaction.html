@@ -10,4 +10,9 @@
     <button class="btn">Сохранить</button>
 </form>
 
+<form action="{% url 'deletepro' protransaction.id %}" method="post">
+    {% csrf_token %}
+    <button class="btn remove">Удалить</button>
+</form>
+
 {% endblock %}

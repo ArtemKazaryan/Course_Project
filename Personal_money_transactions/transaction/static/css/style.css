@@ -110,5 +110,17 @@ input{
     box-sizing: border-box;
 }
 
+.but{
+    display: flex;
+    align-items: flex-end;
+}
+
+.remove{
+    background-color: orangered;
+}
+
+a b{
+    color: orangered;
+}
 
 

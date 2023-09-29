@@ -5,6 +5,7 @@ class ProfitableTransactionForm(ModelForm):
     class Meta:
         model = ProfitableTransaction
         fields = ['date', 'income_type', 'name', 'description', 'amount']
+        
 
 
 class ExpenditureTransactionForm(ModelForm):

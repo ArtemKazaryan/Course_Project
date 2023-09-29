@@ -33,4 +33,6 @@ urlpatterns = [
     path('createexp/', views.createexptransaction, name='createexp'),
     path('protransaction/<int:protransaction_pk>', views.viewprotransaction, name='viewprotransaction'),
     path('exptransaction/<int:exptransaction_pk>', views.viewexptransaction, name='viewexptransaction'),
+    path('protransaction/<int:protransaction_pk>/delete', views.deleteprotransaction, name='deletepro'),
+    path('exptransaction/<int:exptransaction_pk>/delete', views.deleteexptransaction, name='deleteexp'),
 ]

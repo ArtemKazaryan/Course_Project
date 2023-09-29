@@ -70,6 +70,7 @@ def recordedtransactions(request):
     countpro = 0
     countexp = 0
 
+
     # Итерируемся по спискам
     for item in valuespro_list:
         valuepro = item['amount']
@@ -187,3 +188,15 @@ def viewexptransaction(request, exptransaction_pk):
        except ValueError:
            return render(request, 'transaction/viewexptransaction.html', {'exptransaction': exptransaction,
                                                                           'form': form})
+
+def deleteprotransaction(request, protransaction_pk):
+    protransaction = get_object_or_404(ProfitableTransaction, pk=protransaction_pk)
+    if request.method == 'POST':
+        protransaction.delete()
+        return redirect('recorded')
+
+def deleteexptransaction(request, exptransaction_pk):
+    exptransaction = get_object_or_404(ExpenditureTransaction, pk=exptransaction_pk)
+    if request.method == 'POST':
+        exptransaction.delete()
+        return redirect('recorded')
