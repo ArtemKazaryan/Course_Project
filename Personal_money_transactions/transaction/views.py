@@ -64,7 +64,7 @@ def recordedtransactions(request):
     valuespro_list = protransactions.values()
     valuesexp_list = exptransactions.values()
 
-    # Задаём переменный общих размеров доходов и расходов, а также счётчики транзакций
+    # Задаём переменные общих размеров доходов и расходов, а также счётчики транзакций
     sumpro = 0
     sumexp = 0
     countpro = 0
@@ -160,13 +160,13 @@ def createexptransaction(request):
 
 def viewprotransaction(request, protransaction_pk):
     protransaction = get_object_or_404(ProfitableTransaction, pk=protransaction_pk)
-    form = ProfitableTransaction(instance=protransaction)
+    form = ProfitableTransactionForm(instance=protransaction)
     if request.method == 'GET':
         return render(request, 'transaction/viewprotransaction.html', {'protransaction': protransaction,
                                                                        'form': form})
     else:
         try:
-            form = ProfitableTransaction(request.POST, instance=protransaction)
+            form = ProfitableTransactionForm(request.POST, instance=protransaction)
             form.save()
             return redirect('recorded')
         except ValueError:
@@ -175,13 +175,13 @@ def viewprotransaction(request, protransaction_pk):
 
 def viewexptransaction(request, exptransaction_pk):
    exptransaction = get_object_or_404(ExpenditureTransaction, pk=exptransaction_pk)
-   form = ExpenditureTransaction(instance=exptransaction)
+   form = ExpenditureTransactionForm(instance=exptransaction)
    if request.method == 'GET':
        return render(request, 'transaction/viewexptransaction.html', {'exptransaction': exptransaction,
                                                                        'form': form})
    else:
        try:
-           form = ExpenditureTransaction(request.POST, instance=exptransaction)
+           form = ExpenditureTransactionForm(request.POST, instance=exptransaction)
            form.save()
            return redirect('recorded')
        except ValueError:
